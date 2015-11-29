@@ -20,11 +20,6 @@ void setup() {
 	SERVO.pinSetting(P1_3);
 	SERVO.pinSetting(P1_4);
 	SERVO.pinSetting(P1_5);
-	/// value with 0.1 % granularity and in central position
-	SERVO.pinValue(P1_2, 75, 10);
-	SERVO.pinValue(P1_2, 75, 10);
-	SERVO.pinValue(P1_2, 75, 10);
-	SERVO.pinValue(P1_2, 75, 10);
 
 }
 
@@ -42,15 +37,15 @@ void loop() {
 
 	case 1:
 		delay(500);
-		SERVO.pinValue(P1_5, 5);
-		SERVO.pinValue(P1_4, -15);
+		SERVO.pinValue(P1_5, 6.7);
+		SERVO.pinValue(P1_4, 28.6);
 		delay(1000);
 		stato = 2;
 	break;
 
 	case 2:
-		SERVO.pinValue(P1_5, 25);
-		SERVO.pinValue(P1_4, -65);
+		SERVO.pinValue(P1_5, 67.987);
+		SERVO.pinValue(P1_4, 43.98);
 		delay(1000);
 		stato = 1;
 	break;

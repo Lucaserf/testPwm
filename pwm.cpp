@@ -33,7 +33,13 @@ void pwm::setup(uint32_t freq, uint16_t fPwm){
 		TA0CTL 	= TASSEL_2 + MC_1 + TACLR; 	/// si usa il clock di sistema fdco = 24.576MHz
 	/// la frequenza è divisa per 8 dal coefficiente ID_3. Quindi F1 = fdco/8 = 3.072MHz
 	/// F1 / T_PWM = 3.072000 / 8000 = 384; numero di conteggi da scrivere in TA2CCR0
-	TA0CCR0 = (freq >> 3) / fPwm;
+
+	////
+	//// IMPOSTARE IL REGISTRO DI FINE CONTEGGIO PER OTTENERE UN PWM a 8KHz
+	//// SE NECESSARIO RIMUOVERE IL DIVISORE DI FREQUENZA ID_3
+
+	//TA0CCR0 = (freq >> 3) / fPwm;
+
 
 	/// PWM mode
 	TA0CCTL1 = OUTMOD_7;
@@ -101,22 +107,20 @@ void pwm::pinValue(uint8_t pin, uint8_t val, uint16_t scale){
 }
 
 /// value used an integer angolar value
-void pwm::pinValue(uint8_t pin, int8_t angle){
+void pwm::pinValue(uint8_t pin, float valorePWM){
 
-	int16_t valore;
+	int16_t val;
 	float fVal;
-	/// conversion from angle to PWM value
-	if (angle > 90)
-		angle = 90;
-	else if(angle < -90)
-		angle = -90;
 
-	/// granularity is 0.1%
-	/// a PWM between 5 to 10% is split in 150 parts
-	fVal = angle / 90 * 2.5 + 7.5;
-	fVal *= 30;
-	valore = (int16_t) fVal;
-	pinValue(pin, valore, 30);
+
+
+
+
+	///
+	/// IMPOSTARE IL VALORE ADATTO NEI REGISTRI
+	/// TA0CCR1, TA0CCR2, TA0CCR3, TA0CCR4
+	/// CONVERTENDOLO DAL PARAMETRO valorePWM
+	///
 	Serial.print("valore PWM: ");
-	Serial.println(valore);
+	Serial.println(valorePWM);
 }
