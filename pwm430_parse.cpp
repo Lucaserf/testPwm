@@ -48,6 +48,7 @@ void loop() {
 		SERVO.pinValue(P1_4, 43.98);
 		delay(1000);
 		stato = 1;
+
 	break;
 	}
 
